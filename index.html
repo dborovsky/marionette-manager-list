@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Marionette Contact Manager</title>
-    <link href="./assets/css/bootstrap.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="./assets/css/application.css" rel="stylesheet">
     <link href="./assets/css/jquery-ui-1.10.3.custom.css" rel="stylesheet">
   </head>
@@ -35,8 +35,22 @@
       <p> text from a different template </p>
     </script> 
 
-    <script type="text/template" id="contact-template">
-      <p><%= firstName %> <%= lastName %></p>
+    <script type="text/template" id="contact-list-item">
+      <td><%= firstName %></td>  <td><%= lastName %></td>
+      <td>
+        <button class="btn btn-default btn-sm js-delete"><span class="glyphicon glyphicon-remove">Delete</span></button>
+      </td>
+    </script>
+
+    <script type="text/template" id="contact-list">
+      <thead>
+        <tr>
+          <th> First Name </th>
+          <th> Last Name </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </script>
        
 
@@ -53,42 +67,15 @@
     <script src="./assets/js/vendor/backbone.marionette.js"></script>
     <script src=  "./assets/js/vendor/spin.js"></script>
     <script src=  "./assets/js/vendor/spin.jquery.js"></script>
+     <script src=  "./assets/js/app.js"></script>
+     <script src="./assets/js/entities/contact.js"></script>
+     <script src="./assets/js/apps/contacts/list/list_view.js"></script>
+     <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
 
   
     
     <script type="text/javascript">
-      var ContactManager = new Marionette.Application();
-
-      ContactManager.addRegions({
-        mainRegion: "#main-region"
-      });
-
-      ContactManager.Contact = Backbone.Model.extend({
-        defaults: {
-          firstname: '',
-          lastName: '',
-          phoneNumber: ''
-        }
-      });
-
-      ContactManager.ContactView = Marionette.ItemView.extend({
-        template: "#contact-template"
-      });
-      
-      ContactManager.on("start", function(){
-        var alice = new ContactManager.Contact({
-          firstName: 'Alice',
-          lastName: 'Arton',
-          phoneNumber: '43663345'
-        });
-        
-        var aliceView = new ContactManager.ContactView({
-          model: alice
-        });
-        ContactManager.mainRegion.show(aliceView);
-      });
-
-
+          
       ContactManager.start();  
     </script>
   </body>
