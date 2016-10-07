@@ -38,6 +38,7 @@
     <script type="text/template" id="contact-list-item">
       <td><%= firstName %></td>  <td><%= lastName %></td>
       <td>
+        <a href="#/contacts/<%= id %>" class="btn btn-default btn-sm js-show"><span class="glyphicon glyphicon-eye-open">Show</span> </a>
         <button class="btn btn-default btn-sm js-delete"><span class="glyphicon glyphicon-remove">Delete</span></button>
       </td>
     </script>
@@ -51,6 +52,11 @@
         </tr>
       </thead>
       <tbody></tbody>
+    </script>
+
+    <script type="text/template" id="contact-view">
+      <h1><%- firstName %> <%- lastName %></h1>
+      <p><strong>Phone number:</strong> <%- phoneNumber %></p>
     </script>
        
 
@@ -71,7 +77,9 @@
      <script src="./assets/js/entities/contact.js"></script>
      <script src="./assets/js/apps/contacts/list/list_view.js"></script>
      <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
-
+     <script src="./assets/js/apps/contacts/show/show_view.js"></script>
+     <script src="./assets/js/apps/contacts/show/show_controller.js"></script>
+     <script src="./assets/js/apps/contacts/contacts_app.js"></script>
   
     
     <script type="text/javascript">
