@@ -59,6 +59,9 @@
       <p><strong>Phone number:</strong> <%- phoneNumber %></p>
     </script>
        
+    <script type="text/template" id="missing-contact-view">
+      <div class="alert alert-error">This contact doesn't exist !</div>
+    </script>   
 
     
 
@@ -74,12 +77,14 @@
     <script src=  "./assets/js/vendor/spin.js"></script>
     <script src=  "./assets/js/vendor/spin.jquery.js"></script>
      <script src=  "./assets/js/app.js"></script>
+     <script src="./assets/js/apps/config/storage/localstorage.js"></script>
      <script src="./assets/js/entities/contact.js"></script>
      <script src="./assets/js/apps/contacts/list/list_view.js"></script>
      <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
      <script src="./assets/js/apps/contacts/show/show_view.js"></script>
      <script src="./assets/js/apps/contacts/show/show_controller.js"></script>
      <script src="./assets/js/apps/contacts/contacts_app.js"></script>
+     
   
     
     <script type="text/javascript">
