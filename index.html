@@ -56,12 +56,42 @@
 
     <script type="text/template" id="contact-view">
       <h1><%- firstName %> <%- lastName %></h1>
+      <a href="#contacts/<%= id %>/edit" class="btn btn-default btn-sm js-edit">
+        <span>Edit this contact</span>
+      </a>
       <p><strong>Phone number:</strong> <%- phoneNumber %></p>
     </script>
        
     <script type="text/template" id="missing-contact-view">
       <div class="alert alert-error">This contact doesn't exist !</div>
-    </script>   
+    </script>
+ 
+    <script type="text/template" id="loading-view">
+      <h1><%- title %></h1>
+      <p><%- message %></p>
+      <div id="spinner"></div>
+    </script>
+
+   <script type="text/template" id="contact-form">
+      <form>
+        <div class="control-group">
+          <label for="contact-firstName" class="control-label">First name:</label>
+          <input id="contact-firstName" name="firstName" type="text" value="<%- firstName %>"/>
+        </div>
+        <div class="control-group">
+          <label for="contact-lastName" class="control-label">Last name:</label>
+          <input id="contact-lastName" name="lastName" type="text" value="<%- lastName %>"/>
+        </div>
+        <div class="control-group">
+          <label for="contact-phoneNumber" class="control-label">Phone number:</label>
+          <input id="contact-phoneNumber" name="phoneNumber" type="text" value="<%- phoneNumber %>"/>
+        </div>
+        <button class="btn js-submit">Save</button>
+      </form>
+    </script>
+
+
+       
 
     
 
@@ -78,12 +108,15 @@
     <script src=  "./assets/js/vendor/spin.jquery.js"></script>
      <script src=  "./assets/js/app.js"></script>
      <script src="./assets/js/apps/config/storage/localstorage.js"></script>
+     <script src="./assets/js/common/views.js"></script>
      <script src="./assets/js/entities/contact.js"></script>
      <script src="./assets/js/apps/contacts/list/list_view.js"></script>
      <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
      <script src="./assets/js/apps/contacts/show/show_view.js"></script>
      <script src="./assets/js/apps/contacts/show/show_controller.js"></script>
      <script src="./assets/js/apps/contacts/contacts_app.js"></script>
+     <script src="./assets/js/apps/contacts/edit/edit_view.js"></script>
+     <script src="./assets/js/apps/contacts/edit/edit_controller.js"></script>
      
   
     
