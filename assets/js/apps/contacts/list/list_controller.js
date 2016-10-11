@@ -5,9 +5,18 @@ ContactManager.module('ContactsApp.List', function(List, ContactManager, Backbon
       ContactManager.mainRegion.show(loadingView);
       
       var  promise = ContactManager.request('contact:entities');
+      
+      var contactListLayout = new List.Layout();
+      var contactsListPanel = new List.Panel();
+      
       promise.then(function(contacts){
         var contactListView = new List.Contacts({
           collection: contacts
+        });
+
+        contactListLayout.on('show', function(){
+          contactListLayout.panelRegion.show(contactsListPanel);
+          contactListLayout.contactsRegion.show(contactListView);
         });
 
         contactListView.on('childview:contact:delete', function(childview, model){
@@ -38,7 +47,7 @@ ContactManager.module('ContactsApp.List', function(List, ContactManager, Backbon
 
         });
         
-        ContactManager.mainRegion.show(contactListView);
+        ContactManager.mainRegion.show(contactListLayout);
       });
           
     }
