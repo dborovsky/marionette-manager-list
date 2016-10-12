@@ -19,6 +19,33 @@ ContactManager.module('ContactsApp.List', function(List, ContactManager, Backbon
           contactListLayout.contactsRegion.show(contactListView);
         });
 
+        contactsListPanel.on('contact:new', function(){
+          var newContact = new ContactManager.Entities.Contact();
+
+          var view = new ContactManager.ContactsApp.New.Contact({
+            model: newContact,
+            asModal: true
+          });
+
+          view.on('form:submit', function(data){
+            var highestId = contacts.max(function(c){
+              return c.id;
+            });
+            highestId = highestId.get('id');
+            data.id = highestId + 1;
+
+            if(newContact.save(data)){
+              contacts.add(newContact);
+              ContactManager.dialogRegion.reset();
+              contactListView.children.findByModel(newContact).flash('success');
+            } else {
+              view.triggerMethod('form:data:invalid', newContact.validationErrors);
+            }
+          });
+
+          ContactManager.dialogRegion.show(view);
+        });
+
         contactListView.on('childview:contact:delete', function(childview, model){
           model.destroy();
         });
