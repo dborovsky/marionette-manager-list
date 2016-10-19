@@ -2,11 +2,6 @@ ContactManager.module('ContactsApp.Common.Views', function(Views, ContactManager
     Views.Form = Marionette.ItemView.extend({
         template: '#contact-form',
 
-        initialize: function(){
-            this.title = 'edit ' + this.model.get('firstName');
-            this.title += ' ' + this.model.get('lastName');
-        },
-        
         events: {
             'click button.js-submit': 'submitClicked'
         },
@@ -16,15 +11,7 @@ ContactManager.module('ContactsApp.Common.Views', function(Views, ContactManager
             this.trigger('form:submit', data);
         },
 
-        onShow: function(){
-             if(this.options.asModal){
-                this.$el.dialog({
-                modal: true,
-                title: this.title,
-                width: 'auto'
-              });
-             }
-        },
+       
 
         onFormDataInvalid: function(errors){
             var $view = this.$el;
@@ -48,13 +35,8 @@ ContactManager.module('ContactsApp.Common.Views', function(Views, ContactManager
             clearFormErrors();
             _.each(errors, markErrors);
 
-        },
-
-        onRender: function(){
-            if(!this.options.asModal){
-                var $title = $('<h1>', {text: this.title});
-                this.$el.prepend($title);
-            }
         }
+
+        
     });
 });

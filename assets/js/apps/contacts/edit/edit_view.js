@@ -5,5 +5,14 @@ ContactManager.module('ContactsApp.Edit', function(Edit, ContactManager, Backbon
             this.title = 'edit ' + this.model.get('firstName');
             this.title += ' ' + this.model.get('lastName');
         },
+
+        onRender: function(){
+            if(this.options.generateTitle){
+                var $title = $('<h1>', {text: this.title});
+                this.$el.prepend($title);
+            }
+
+            this.$('.js-submit').text('Edit contact');
+        }
     });
 });

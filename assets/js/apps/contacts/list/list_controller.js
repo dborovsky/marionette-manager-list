@@ -10,10 +10,29 @@ ContactManager.module('ContactsApp.List', function(List, ContactManager, Backbon
       var contactsListPanel = new List.Panel();
       
       promise.then(function(contacts){
+        var filteredContacts = ContactManager.Entities.FilteredCollection({
+          collection: contacts,
+          filterFunction: function(filterCriterion){
+             var criterion = filterCriterion.toLowerCase();
+             return function(contact){
+              if(contact.get("firstName").toLowerCase().indexOf(criterion) !== -1 
+                || contact.get("lastName").toLowerCase().indexOf(criterion) !== -1
+                || contact.get("phoneNumber").toLowerCase().indexOf(criterion) !== -1){
+
+                  return contact;
+                }          
+             } 
+          }
+        });
+        
         var contactListView = new List.Contacts({
-          collection: contacts
+          collection: filteredContacts
         });
 
+        contactsListPanel.on("contacts:filter", function(filterCriterion){
+          filteredContacts.filter(filterCriterion);
+        });
+        
         contactListLayout.on('show', function(){
           contactListLayout.panelRegion.show(contactsListPanel);
           contactListLayout.contactsRegion.show(contactListView);
@@ -23,8 +42,7 @@ ContactManager.module('ContactsApp.List', function(List, ContactManager, Backbon
           var newContact = new ContactManager.Entities.Contact();
 
           var view = new ContactManager.ContactsApp.New.Contact({
-            model: newContact,
-            asModal: true
+            model: newContact
           });
 
           view.on('form:submit', function(data){
@@ -36,7 +54,7 @@ ContactManager.module('ContactsApp.List', function(List, ContactManager, Backbon
 
             if(newContact.save(data)){
               contacts.add(newContact);
-              ContactManager.dialogRegion.reset();
+              view.trigger('dialog:close');
               contactListView.children.findByModel(newContact).flash('success');
             } else {
               view.triggerMethod('form:data:invalid', newContact.validationErrors);
@@ -56,14 +74,13 @@ ContactManager.module('ContactsApp.List', function(List, ContactManager, Backbon
 
         contactListView.on('childview:contact:edit', function(childView, model){
           var view = new ContactManager.ContactsApp.Edit.Contact({
-            model: model,
-            asModal: true
+            model: model
           });
           
           view.on('form:submit', function(data){
             if(model.save(data)){
               childView.render();
-              ContactManager.dialogRegion.reset();
+              view.trigger('dialog:close');
               childView.flash('success');
             }else{
               view.triggerMethod('form:data:invalid', model.validationErrors);
